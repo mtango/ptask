@@ -1,8 +1,8 @@
 #ifndef __PBARRIER_H__
 #define __PBARRIER_H__
 
+#include "ptime.h"
 #include <pthread.h>
-#include <ptime.h>
 #include <semaphore.h>
 
 /**

@@ -1,7 +1,7 @@
 #ifndef __CALIBRATE_H__
 #define __CALIBRATE_H__
 
-#include <ptime.h>
+#include "ptime.h"
 
 #define WORK(n)                                                                \
     do {                                                                       \

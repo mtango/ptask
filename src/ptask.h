@@ -6,11 +6,11 @@
 #define __PTASK_H__
 
 #include "dle_timer.h"
-#include <libdl.h>
+#include "libdl.h"
+#include "ptime.h"
+#include "rtmode.h"
 #include <linux/sched.h>
 #include <pthread.h>
-#include <ptime.h>
-#include <rtmode.h>
 #include <semaphore.h>
 #include <setjmp.h>
 #include <signal.h>

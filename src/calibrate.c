@@ -1,7 +1,7 @@
 #include "calibrate.h"
+#include "tstat.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <tstat.h>
 
 static long iter_milli = 0;
 

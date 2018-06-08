@@ -1,8 +1,8 @@
 #ifndef __RTMODE_H__
 #define __RTMODE_H__
 
+#include "ptime.h"
 #include <pthread.h>
-#include <ptime.h>
 
 #define RTMODE_MAX_MODES 16
 #define RTMODE_MAX_TASKS 16

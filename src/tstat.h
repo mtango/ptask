@@ -1,7 +1,7 @@
 #ifndef __WCET_H__
 #define __WCET_H__
 
-#include <ptime.h>
+#include "ptime.h"
 
 /**
    This module provides simple utilities for measuring the average and

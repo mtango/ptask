@@ -1,6 +1,3 @@
-# Add current directory.
-include_directories(.)
-
 set(SOURCE_FILES
   pbarrier.c
   pmutex.c
