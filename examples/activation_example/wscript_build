@@ -1,0 +1,6 @@
+ctx.program(target = 'activation_example',
+			source = ['animation.c', 'graphics.c', 'testTaskFun.c'],
+			use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO'],
+			lib = ['rt', 'pthread'])
+
+

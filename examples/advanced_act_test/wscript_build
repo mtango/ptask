@@ -1,0 +1,5 @@
+ctx.program(target = 'advanced_act_test',
+			source = ['animation.c', 'graphics.c', 'testParam.c'],
+			use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO'],
+			lib = ['rt', 'pthread'])
+

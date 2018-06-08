@@ -1,4 +1,7 @@
 build/
+build_*/
 .vscode/
 next
 buildscript.sh
+.waf*
+.lock-waf*

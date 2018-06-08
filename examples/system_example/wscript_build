@@ -1,0 +1,23 @@
+ctx.objects(source = 'graphics.c',
+            use = ['PTASK_INCLUDES'],
+            target = 'graphics')
+
+ctx.program(target = 'migrationTimeTest',
+            source = ['migrationTime.c'],
+            use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO', 'graphics'],
+            lib = ['rt', 'pthread'])
+
+ctx.program(target = 'schedulerTest',
+            source = ['testSystem.c'],
+            use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO', 'graphics'],
+            lib = ['rt', 'pthread'])
+
+ctx.program(target = 'protocolTest',
+            source = ['testProt.c'],
+            use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO', 'graphics'],
+            lib = ['rt', 'pthread'])
+
+ctx.program(target = 'testPart',
+            source = ['testPart.c', 'animation.c'],
+            use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO', 'graphics'],
+            lib = ['rt', 'pthread'])

@@ -1,0 +1,22 @@
+tests = [
+		'time',
+		'key',
+		'key_opt',
+		'exception',
+		'test_cores',
+		'task_create',
+		'task_aperiodic',
+		'wcet_calibration',
+		'test_edf',
+		]
+
+for t in tests:
+	libs = ['rt']
+	if t not in ['time']:
+		libs += ['pthread']
+	ctx.program(target = t,
+				source = ['{}.c'.format(t)],
+				use = ['PTASK_INCLUDES', 'PTASK'],
+				lib = libs)
+
+

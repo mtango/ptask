@@ -1,0 +1,13 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+sources = ctx.path.ant_glob('*.c')
+ctx(
+        export_includes = '.',
+        name = 'PTASK_INCLUDES')
+
+ctx.stlib(
+        source = sources,
+        target = 'ptask',
+        name = 'PTASK'
+        )

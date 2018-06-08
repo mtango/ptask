@@ -1,0 +1,33 @@
+def configure(ctx):
+    ctx.check_cfg(package='allegro', uselib_store='ALLEGRO',
+                args=['--cflags', '--libs'])
+
+def build(ctx):
+    ctx.program(target = 'ball',
+                source = ['ball.c'],
+                use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO'],
+                lib = ['m', 'rt', 'pthread'])
+
+    ctx.program(target = 'pbarr_example',
+                source = ['pbarr_example.c'],
+                use = ['PTASK_INCLUDES', 'PTASK'],
+                lib = ['rt', 'pthread'])
+
+    ctx.program(target = 'modes',
+                source = ['modes.c'],
+                use = ['PTASK_INCLUDES', 'PTASK'],
+                lib = ['rt', 'pthread'])
+
+    ctx.program(target = 'deadline_exception',
+                source = ['deadline_exception.c'],
+                use = ['PTASK_INCLUDES', 'PTASK'],
+                lib = ['rt', 'pthread'])
+
+    ctx.program(target = 'pcp',
+                source = ['pcp.c'],
+                use = ['PTASK_INCLUDES', 'PTASK', 'ALLEGRO'],
+                lib = ['rt', 'pthread'])
+
+    ctx.recurse('activation_example')
+    ctx.recurse('advanced_act_test')
+    ctx.recurse('system_example')
