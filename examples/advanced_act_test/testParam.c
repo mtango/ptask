@@ -201,7 +201,10 @@ int main(void) {
     ptask_init(sched, part, prot);
 
     /******		DISPLAY INFORMATION			*****/
-    /*											   3 -> indicates the test 3AdvancedCreationTest
+    /*											   3 -> indicates
+     * the
+     * test
+     * 3AdvancedCreationTest
      */
     draw_system_info(sched, part, prot, tipo_prio, 3, false);
 
