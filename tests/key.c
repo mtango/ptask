@@ -13,9 +13,13 @@ struct mystruct {
 static pthread_key_t key;
 static pthread_once_t key_once = PTHREAD_ONCE_INIT;
 
-static void make_key() { pthread_key_create(&key, NULL); }
+static void make_key()
+{
+    pthread_key_create(&key, NULL);
+}
 
-void allocate() {
+void allocate()
+{
     void *ptr;
 
     pthread_once(&key_once, make_key);
@@ -25,7 +29,8 @@ void allocate() {
     }
 }
 
-void *body(void *arg) {
+void *body(void *arg)
+{
     allocate();
     struct mystruct *ptr = (struct mystruct *)pthread_getspecific(key);
     memcpy(ptr, arg, sizeof(struct mystruct));
@@ -38,7 +43,8 @@ void *body(void *arg) {
     return 0;
 }
 
-int main() {
+int main()
+{
     int i;
     struct mystruct obj[4] = {
         {"abcd", 0, 0}, {"abcd", 1, 0}, {"abcd", 2, 0}, {"abcd", 3, 0}};

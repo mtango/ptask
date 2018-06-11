@@ -7,14 +7,19 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 
-void draw_ball(int x, int y, int c) { circlefill(screen, x, y, L, c); }
+void draw_ball(int x, int y, int c)
+{
+    circlefill(screen, x, y, L, c);
+}
 
-void print_id_task(int id, int x, int y, int color) {
+void print_id_task(int id, int x, int y, int color)
+{
 
     textprintf_ex(screen, font, x, y, color, BGC, "T%d", id);
 }
 
-void periodicBall_testParam() {
+void periodicBall_testParam()
+{
 
     int i, j = 0;
     int dcol = BGC;
@@ -88,7 +93,8 @@ void periodicBall_testParam() {
     }
 }
 
-void periodicBall_testParamDEP_PER() {
+void periodicBall_testParamDEP_PER()
+{
 
     int i, j = 0;
     int dcol = BGC;

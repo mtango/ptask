@@ -10,7 +10,8 @@
  */
 /*--------------------------------------------------------------*/
 
-void periodicLine_testSystemTask() {
+void periodicLine_testSystemTask()
+{
 
     int ox;           /* old position  */
     int col;          /* line color */
@@ -60,7 +61,8 @@ void periodicLine_testSystemTask() {
     }
 }
 
-void periodicLine_testSystemTaskOFFSET() {
+void periodicLine_testSystemTaskOFFSET()
+{
     int i;            /* index of task  */
     int x, y;         /* coordinates of the ball  */
     int ox;           /* old position  */

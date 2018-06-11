@@ -53,7 +53,8 @@ pthread_mutex_t mxa, muxA, muxB;
 /*  Reads task parameters from a configuration file     	*/
 /*--------------------------------------------------------------*/
 
-void get_data() {
+void get_data()
+{
     char c;
     int i;
     FILE *fp;
@@ -93,7 +94,8 @@ void get_data() {
 /*  Prints a grid to show task periods during execution		*/
 /*--------------------------------------------------------------*/
 
-void print_grid(int policy, int prot) {
+void print_grid(int policy, int prot)
+{
     int i, x, y, k;
     int lev;
     int at, dl;
@@ -172,7 +174,8 @@ void print_grid(int policy, int prot) {
 
 /*--------------------------------------------------------------*/
 
-void init(int policy, int prot) {
+void init(int policy, int prot)
+{
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XMAX, YMAX, 0, 0);
     clear_to_color(screen, BGC);
@@ -192,7 +195,8 @@ void init(int policy, int prot) {
         pmux_create_pi(&mxa);
         pmux_create_pi(&muxA);
         pmux_create_pi(&muxB);
-    } else if (prot == PCP) {
+    }
+    else if (prot == PCP) {
         pmux_create_pc(&mxa, prio[1]);
         pmux_create_pc(&muxA, prio[1]);
         pmux_create_pc(&muxB, prio[1]);
@@ -203,7 +207,8 @@ void init(int policy, int prot) {
 /*  GENERIC PERIODIC TASK					*/
 /*--------------------------------------------------------------*/
 
-void task() {
+void task()
+{
     int x = 0;
     long t;
     int i, k;
@@ -292,7 +297,8 @@ void task() {
 /*  CREATOR TASK						*/
 /*--------------------------------------------------------------*/
 
-void gen() {
+void gen()
+{
     int i, j;
 
     for (i = 1; i < nt; i++) {
@@ -310,7 +316,8 @@ void gen() {
 /*  MAIN TASK							*/
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
     int lev1, lev2;
     int c, key = 0;
     long x = 0;

@@ -2,7 +2,8 @@
 #include <ptime.h>
 #include <stdio.h>
 
-int main() {
+int main()
+{
     long delta1, delta2, delta3;
     tspec t1, t2, t3;
 

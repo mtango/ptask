@@ -4,7 +4,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-void init() {
+void init()
+{
     allegro_init();
 
     /* Initializes this library */
@@ -25,7 +26,8 @@ void init() {
  */
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
     int unit = MILLI;
     int i, id, k;
     int c;          /* character from keyboard	*/
@@ -65,7 +67,8 @@ int main(void) {
 
     if (modeACT == 0) { // {MOD_NOW=0, MOD_DEF_OFFSET=1, MOD_DEF_NO_OFFS = 2}
         act_flag = NOW;
-    } else {
+    }
+    else {
         act_flag = DEFERRED;
     }
 
@@ -99,7 +102,8 @@ int main(void) {
             }
             id = ptask_create_prio(periodicLine_testSystemTask, PER,
                                    priority[i], act_flag);
-        } else {
+        }
+        else {
             /* MODE WITH OFFSET */
             time_tmp = ptask_gettime(MILLI);
             pthread_mutex_lock(&mxa);
@@ -129,7 +133,8 @@ int main(void) {
                               BASE1 + 2 * ALT_RIGA, FGC, BGC, "%ld",
                               v_offset[i]);
                 pthread_mutex_unlock(&mxa);
-            } else
+            }
+            else
                 fprintf(stderr,
                         "Task %d non può essere attivato o già avviato!!!\n",
                         i + 1);
@@ -140,7 +145,8 @@ int main(void) {
                 temp = "!\n";
             }
             printf("Task %d creato%s", id + 1, temp);
-        } else {
+        }
+        else {
             allegro_exit();
             printf(
                 "Errore nella creazione(o anche attivazione NOW) del task!\n");
@@ -172,7 +178,8 @@ int main(void) {
                 pthread_mutex_unlock(&mxa);
                 draw_activation(ntasks, id, priority[id], false);
                 ntasks++;
-            } else {
+            }
+            else {
 
                 printf("Task %d non può essere attivato o già avviato!!!\n",
                        id);

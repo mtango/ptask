@@ -7,7 +7,8 @@
 
 int idx;
 
-ptask taskbody_manager() {
+ptask taskbody_manager()
+{
     int cpu_old = 0, idCPU = 1;
     while (1) {
         printf("	# Task T%d is running\n", ptask_get_index());
@@ -48,7 +49,8 @@ ptask taskbody_manager() {
     }
 }
 
-ptask taskbody() {
+ptask taskbody()
+{
     while (1) {
         printf("Task T%d is running on core %d\n", ptask_get_index(),
                sched_getcpu());
@@ -56,7 +58,8 @@ ptask taskbody() {
     }
 }
 
-int main(void) {
+int main(void)
+{
     int sched = SCHED_OTHER;
     int prot = NO_PROTOCOL;
     int part = PARTITIONED;

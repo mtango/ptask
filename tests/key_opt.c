@@ -6,7 +6,8 @@
 
 static __thread int myindex;
 
-void *body(void *arg) {
+void *body(void *arg)
+{
     myindex = *((int *)arg);
 
     printf("This is my index : %d\n", myindex);
@@ -16,7 +17,8 @@ void *body(void *arg) {
     return 0;
 }
 
-int main() {
+int main()
+{
     int i;
     pthread_t tid[4];
     pthread_t args[4];

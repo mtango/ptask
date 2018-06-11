@@ -14,7 +14,8 @@ const char *stringa_prot[] = {" PROTOCOL = PRIO_INHERITANCE",
 #define MAX_STR_PART strlen(stringa_part[0])
 
 /* s = scheduler, p = task's priority , tipo_test={0:SCHED,1:PART,2:PROT}*/
-void draw_system_info(int s, int part, int prot, int p, int tipo_test) {
+void draw_system_info(int s, int part, int prot, int p, int tipo_test)
+{
 
     int len_stringProt_Part = MAX_STR_PROT + MAX_STR_PART + 1;
     int x, nc;
@@ -49,7 +50,8 @@ void draw_system_info(int s, int part, int prot, int p, int tipo_test) {
 }
 
 // draw the identifier of the task activated
-void draw_activation(int numTActive, int idT, int prio, bool verbose) {
+void draw_activation(int numTActive, int idT, int prio, bool verbose)
+{
     int x;
 
     x = XMIN + (24 * 8) + (3 * numTActive) * 8;
@@ -60,42 +62,50 @@ void draw_activation(int numTActive, int idT, int prio, bool verbose) {
     pthread_mutex_unlock(&mxa);
 }
 
-char *listboxSched_getter(int index, int *list_size) {
+char *listboxSched_getter(int index, int *list_size)
+{
     static char *strings[] = {"SCHED_OTHER", "SCHED_FIFO", "SCHED_RR"};
     if (index < 0) {
         *list_size = 3;
         return NULL;
-    } else
+    }
+    else
         return strings[index];
 }
 
-char *listboxPart_getter(int index, int *list_size) {
+char *listboxPart_getter(int index, int *list_size)
+{
     static char *strings[] = {"PARTITIONED", "GLOBAL"};
     if (index < 0) {
         *list_size = 2;
         return NULL;
-    } else
+    }
+    else
         return strings[index];
 }
 
-char *listboxProt_getter(int index, int *list_size) {
+char *listboxProt_getter(int index, int *list_size)
+{
     static char *strings[] = {"PRIO_INHERITANCE", "PRIO_CEILING",
                               "NO_PROTOCOL"};
     if (index < 0) {
         *list_size = 3;
         return NULL;
-    } else
+    }
+    else
         return strings[index];
 }
 
-void init_vett(int tipo, int *vett, int dim, int val) {
+void init_vett(int tipo, int *vett, int dim, int val)
+{
     int i;
 
     if (tipo == INIZIALIZED) {
         for (i = 0; i < dim; i++) {
             vett[i] = val;
         }
-    } else if (tipo == DIFFERENT) {
+    }
+    else if (tipo == DIFFERENT) {
         for (i = 0; i < dim; i++) {
             vett[i] = val - i;
         }
@@ -105,7 +115,8 @@ void init_vett(int tipo, int *vett, int dim, int val) {
 /*type= {PRIO_EQUAL = 0: task with equal priority,
  * 		 PRIO_DIFF  = 1: task with different priority,
  * 		 PRIO_CUSTOM= 2: task with customizable priority}*/
-void init_vettore_prio(int type, int *prio, int dim) {
+void init_vettore_prio(int type, int *prio, int dim)
+{
     int prioMAX = PRIO;
     init_vett(type, prio, dim, prioMAX);
 }
@@ -169,7 +180,8 @@ DIALOG part_dialog[] = {
 
 DIALOG d_final = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL};
 
-bool error_edit(char *stringa, char *endptr, long int val) {
+bool error_edit(char *stringa, char *endptr, long int val)
+{
     char *error2 = "Error in conversion! long(strtol)!!!\n";
     char *error3_4 = "Error! entered letters or symbols!!!\n";
     bool errore_trovato = false;
@@ -205,7 +217,8 @@ bool error_edit(char *stringa, char *endptr, long int val) {
 }
 
 /* Function to select system scheduler*/
-int select_sched() {
+int select_sched()
+{
     int ret = 0;
 
     ret = do_dialog(sched_dialog, -1);
@@ -218,7 +231,8 @@ int select_sched() {
 }
 
 /* Function to select system protocol*/
-int select_prot() {
+int select_prot()
+{
     int ret = 0;
 
     ret = do_dialog(prot_dialog, -1);
@@ -231,7 +245,8 @@ int select_prot() {
 }
 
 /* Function to select type of partitioning*/
-int select_part() {
+int select_part()
+{
 
     int ret = 0;
 

@@ -17,7 +17,8 @@ const char *string_prot[] = {" PROTOCOL = PRIO_INHERITANCE",
 /* s = scheduler, p = task's priority , tipo_test={0:SCHED,1:PART,2:PROT,
  * 3:PARAM_TEST, 5:MODE_TEST}*/
 void draw_system_info(int s, int part, int prot, int p, int tipo_test,
-                      bool verbose) {
+                      bool verbose)
+{
 
     int len_stringProt_Part = MAX_STR_PROT + MAX_STR_PART + 1;
     int x, nc;
@@ -68,7 +69,8 @@ void draw_system_info(int s, int part, int prot, int p, int tipo_test,
                    0);
         textout_ex(screen, font, "  priority  ", XMIN + 112 * 4, BASE1 + 10,
                    FGC, 0);
-    } else
+    }
+    else
         textout_ex(screen, font, " --->  MODE  ACTIVE  = ", XMIN, BASE1 + 10,
                    FGC, 0);
 
@@ -86,15 +88,16 @@ void draw_system_info(int s, int part, int prot, int p, int tipo_test,
                    0);
         textout_ex(screen, font, "KEY [ C ] to active MODE_B", 5, YWIN - 20, 10,
                    0);
-    } else if (tipo_test == 3) {
+    }
+    else if (tipo_test == 3) {
         textout_ex(screen, font,
                    "KEY [ A ] to activate tasks whit act_flag = 0", 5,
                    YWIN - 20, 10, 0);
         textout_ex(screen, font,
                    "KEY [ M ] to terminate tasks and show measure ", 5,
                    YWIN - 30, 10, 0);
-
-    } else
+    }
+    else
         textout_ex(screen, font, "KEY [1-9] to activate tasks", 5, YWIN - 20,
                    10, 0);
 
@@ -102,7 +105,8 @@ void draw_system_info(int s, int part, int prot, int p, int tipo_test,
 }
 
 /* draw the identifier of the task activated */
-void draw_activation(int numTActive, int idT, int prio, bool verbose) {
+void draw_activation(int numTActive, int idT, int prio, bool verbose)
+{
 
     char str_prio[3];
     char str_id[3];
@@ -122,7 +126,8 @@ void draw_activation(int numTActive, int idT, int prio, bool verbose) {
 /*type= {PRIO_EQUAL = 0: task with equal priority,
  * 		 PRIO_DIFF  = 1: task with different priority,
  * 		 PRIO_CUSTOM= 2: task with customizable priority} */
-void init_vettore_prio(int tipo, int *prio, int dim) {
+void init_vettore_prio(int tipo, int *prio, int dim)
+{
     int prioMAX = PRIO;
     int i = 0;
 
@@ -130,19 +135,22 @@ void init_vettore_prio(int tipo, int *prio, int dim) {
         for (i = 0; i < dim; i++) {
             prio[i] = prioMAX;
         }
-    } else if (tipo == 1) {
+    }
+    else if (tipo == 1) {
         for (i = 0; i < dim; i++) {
             prio[i] = prioMAX - i;
         }
     }
 }
 
-char *listboxModification_getter(int index, int *list_size) {
+char *listboxModification_getter(int index, int *list_size)
+{
     static char *strings[] = {"period", "deadline", "cpu", "priority"};
     if (index < 0) {
         *list_size = 4;
         return NULL;
-    } else
+    }
+    else
         return strings[index];
 }
 
@@ -177,7 +185,8 @@ DIALOG box_modification[] = {
 
 /* Creates and show dialog to modify dinamically parameters of tasks
 * and return index of parameter to modify*/
-int modification_param() {
+int modification_param()
+{
 
     do_dialog(box_modification, -1);
 

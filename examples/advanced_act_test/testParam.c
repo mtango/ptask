@@ -25,7 +25,8 @@ int dipPeriodo = 0; /* it means the 'dependency' of movement of ball from the
                        period(0:no, 1:yes) */
 
 /* Inizialized Allegro and semaphores */
-void init() {
+void init()
+{
     int i = 0;
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XWIN, YWIN, 0, 0);
@@ -42,7 +43,8 @@ void init() {
 }
 
 /* Prints parameters of structure tpars */
-void printf_param(tpars tp, const char *str, int unit) {
+void printf_param(tpars tp, const char *str, int unit)
+{
     printf("Struttura tpars %s\n", str);
 
     printf("Periodo  :\t%ld\n", tspec_to(&tp.period, unit));
@@ -54,7 +56,8 @@ void printf_param(tpars tp, const char *str, int unit) {
 }
 
 /* reads the task's parameters from file */
-void get_data() {
+void get_data()
+{
     char c;
     int i;
     FILE *fp;
@@ -98,7 +101,8 @@ void get_data() {
 
 /* given id_param_to_mod (index of a PARAMETER, call ptask_set_PARAMETER(idTask,
  * value, ...) */
-int param_modification(int id_param_to_mod, int unit) {
+int param_modification(int id_param_to_mod, int unit)
+{
 
     int i, value;
     char *endptr;
@@ -137,7 +141,8 @@ int param_modification(int id_param_to_mod, int unit) {
 }
 
 /* It draws task's parameters */
-void draw_param_task(int i, int unit) {
+void draw_param_task(int i, int unit)
+{
 
     int spazio_colonna = 112;
     int h_riga = 10;
@@ -163,7 +168,8 @@ void draw_param_task(int i, int unit) {
  */
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
     int i, k;
     int c; /* character from keyboard			*/
     int ret = 0;
@@ -201,7 +207,9 @@ int main(void) {
     ptask_init(sched, part, prot);
 
     /******		DISPLAY INFORMATION			*****/
-    /*											   3 -> indicates
+    /*											   3
+     * ->
+     * indicates
      * the
      * test
      * 3AdvancedCreationTest

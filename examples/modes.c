@@ -5,7 +5,8 @@
 #define MODE_ON 1
 #define MODE_FAIL 2
 
-ptask taskbody() {
+ptask taskbody()
+{
     ptask_wait_for_activation();
     while (1) {
         printf("Task T%d is running\n", ptask_get_index());
@@ -13,7 +14,8 @@ ptask taskbody() {
     }
 }
 
-int main() {
+int main()
+{
     rtmode_t mymodes;
     tpars param;
     int res;

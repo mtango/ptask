@@ -28,7 +28,8 @@ long t_start;
 /*  Reads task parameters from a configuration file     	*/
 /*--------------------------------------------------------------*/
 
-void get_data() {
+void get_data()
+{
     char c;
     int i;
     FILE *fp;
@@ -68,7 +69,8 @@ void get_data() {
 /*  Prints a grid to show task periods during execution		*/
 /*--------------------------------------------------------------*/
 
-void print_grid(int prot) {
+void print_grid(int prot)
+{
     int i, x, y, k;
     int lev;
     int at, dl;
@@ -143,7 +145,8 @@ void print_grid(int prot) {
 
 /*--------------------------------------------------------------*/
 
-void init() {
+void init()
+{
 
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XWIN, YWIN, 0, 0);
@@ -153,7 +156,8 @@ void init() {
     srand(time(NULL));
 }
 
-void set_sem_sezC(int protocol) {
+void set_sem_sezC(int protocol)
+{
 
     pthread_mutex_init(&mx_sezNorm, 0);
     printf("Selected protocol : -%d-  \n", protocol);
@@ -162,13 +166,13 @@ void set_sem_sezC(int protocol) {
         printf("PRIO_INHERITANCE  \n");
         pmux_create_pi(&mx_sezA);
         pmux_create_pi(&mx_sezB);
-
-    } else if (protocol == PRIO_CEILING) {
+    }
+    else if (protocol == PRIO_CEILING) {
         printf("PRIO_CEILING   \n");
         pmux_create_pc(&mx_sezA, PRIO);
         pmux_create_pc(&mx_sezB, PRIO);
-
-    } else {
+    }
+    else {
 
         pthread_mutex_init(&mx_sezA, 0);
         pthread_mutex_init(&mx_sezB, 0);
@@ -179,7 +183,8 @@ void set_sem_sezC(int protocol) {
 /*  GENERIC PERIODIC TASK					*/
 /*--------------------------------------------------------------*/
 
-void task() {
+void task()
+{
     int x = 0;
     long t = 0;
     int i, k;
@@ -241,7 +246,8 @@ void task() {
 /*  CREATOR TASK						*/
 /*--------------------------------------------------------------*/
 
-void gen() {
+void gen()
+{
     int i, j;
 
     for (i = 1; i < num_tasks; i++) {
@@ -263,7 +269,8 @@ void gen() {
  */
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
 
     int ret = 0, nc;
     int c;

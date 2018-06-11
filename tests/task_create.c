@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void mytask() {
+void mytask()
+{
     int k, i = ptask_get_index();
     for (k = 0; k < 3; ++k) {
         printf("Task %d arrived with period %d\n", i,
@@ -11,7 +12,8 @@ void mytask() {
     }
 }
 
-int main() {
+int main()
+{
     tpars tparam = TASK_SPEC_DFL;
 
     ptask_init(SCHED_FIFO, PARTITIONED, PRIO_INHERITANCE);

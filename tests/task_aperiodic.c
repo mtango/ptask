@@ -8,7 +8,8 @@ int ca = 0;
 
 int aperiodic_id = 0;
 
-void myperiodic() {
+void myperiodic()
+{
     int i;
     for (i = 0; i < 4; i++) {
         printf("Periodic task, %d\n", i);
@@ -18,7 +19,8 @@ void myperiodic() {
     }
 }
 
-void myaperiodic() {
+void myaperiodic()
+{
     int i;
     for (i = 0; i < 4; i++) {
         ptask_wait_for_activation();
@@ -27,7 +29,8 @@ void myaperiodic() {
     }
 }
 
-int main() {
+int main()
+{
     ptask_init(SCHED_FIFO, GLOBAL, PRIO_INHERITANCE);
 
     tpars params = TASK_SPEC_DFL;

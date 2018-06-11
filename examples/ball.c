@@ -39,7 +39,8 @@ pthread_mutex_t mxv; // = PTHREAD_MUTEX_INITIALIZER;
 int end = 0;
 
 /*--------------------------------------------------------------*/
-void init() {
+void init()
+{
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XWIN, YWIN, 0, 0);
     clear_to_color(screen, BGC);
@@ -59,13 +60,17 @@ void init() {
 
 /*--------------------------------------------------------------*/
 
-void draw_ball(int x, int y, int c) { circlefill(screen, x, y, L, c); }
+void draw_ball(int x, int y, int c)
+{
+    circlefill(screen, x, y, L, c);
+}
 
 /*--------------------------------------------------------------*/
 /*	Periodic task for ball simulation			*/
 /*--------------------------------------------------------------*/
 
-void palla() {
+void palla()
+{
     int i, col, dcol = 0; /* indice del task  */
     int x, y;             /* coordinate grafiche pallina  */
     int ox, oy;           /* vecchia posizione pallina    */
@@ -141,7 +146,8 @@ void palla() {
 /*			MAIN process				*/
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
     int c;                              /* character from keyboard	*/
     int i, j, k;                        /* number of tasks created	*/
     double a;                           /* temporary variable           */
@@ -187,7 +193,8 @@ int main(void) {
             if (i != -1) {
                 printf("Task %d created and activated\n", i);
                 ntasks++;
-            } else {
+            }
+            else {
                 allegro_exit();
                 printf("Error in creating task!\n");
                 exit(-1);

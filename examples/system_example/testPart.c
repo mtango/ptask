@@ -5,7 +5,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-void init() {
+void init()
+{
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XWIN, YWIN, 0, 0);
     clear_to_color(screen, BGC);
@@ -20,7 +21,8 @@ void init() {
  */
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
     bool state_task[NUM_T_TEST]; /* state_i==true task created*/
     int priority[NUM_T_TEST];
     int i, id, k;
@@ -62,7 +64,8 @@ int main(void) {
         if (id != -1) {
             printf("Task %d created \n", id);
             state_task[id] = true; // task create state=true
-        } else {
+        }
+        else {
             allegro_exit();
             printf("Error in creating task!\n");
             exit(-1);

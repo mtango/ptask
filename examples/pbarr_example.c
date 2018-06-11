@@ -11,7 +11,8 @@ tspec offset[NTASKS];
 
 // extern struct task_par _tp[MAX_TASKS];
 
-void task_body() {
+void task_body()
+{
     int i = ptask_get_index();
     int k;
     tspec st;
@@ -42,7 +43,8 @@ void task_body() {
     }
 }
 
-int main() {
+int main()
+{
     int i;
     int ret;
     ptask_init(SCHED_FIFO, GLOBAL, PRIO_INHERITANCE);

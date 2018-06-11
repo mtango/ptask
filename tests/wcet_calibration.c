@@ -10,7 +10,8 @@ gsem_t sem;
 
 #define WORK_NITER 10000000l
 
-void calibrate_task() {
+void calibrate_task()
+{
     int i = 0;
 
     for (i = 0; i < 50; i++) {
@@ -24,7 +25,8 @@ void calibrate_task() {
     return;
 }
 
-int main() {
+int main()
+{
     ptask_init(SCHED_DEADLINE, GLOBAL, PRIO_INHERITANCE);
     gsem_init(&sem);
 

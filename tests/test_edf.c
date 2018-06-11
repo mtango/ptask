@@ -24,7 +24,8 @@ int trace_events[][3] = {{1, 0, 0}, {1, 1, 0}, {1, 1, 1}, {2, 1, 1},
                          {2, 2, 1}, {3, 2, 1}, {3, 2, 2}, {4, 2, 2},
                          {4, 3, 2}, {5, 3, 2}, {5, 3, 3}};
 
-int trace_exec(int idx) {
+int trace_exec(int idx)
+{
     static int evt = 0;
     cnts[idx]++;
     int flag = 1;
@@ -45,7 +46,8 @@ int trace_exec(int idx) {
     return flag;
 }
 
-void body() {
+void body()
+{
     int idx = ptask_get_index();
 
     for (int i = 0; i < njobs[idx]; i++) {
@@ -65,7 +67,8 @@ void body() {
     gsem_post(&sem);
 }
 
-int main() {
+int main()
+{
     tpars p;
 
     ptask_init(SCHED_DEADLINE, PARTITIONED, PRIO_INHERITANCE);

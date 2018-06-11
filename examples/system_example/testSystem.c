@@ -25,7 +25,8 @@ pthread_mutex_t mxa;
 /*  Reads task parameters from a configuration file     	*/
 /*--------------------------------------------------------------*/
 
-void get_data() {
+void get_data()
+{
     char c;
     int i;
     FILE *fp;
@@ -63,7 +64,8 @@ void get_data() {
 /*  Prints a grid to show task periods during execution		*/
 /*--------------------------------------------------------------*/
 
-void print_grid(int policy) {
+void print_grid(int policy)
+{
     int i, x, y, k;
     int lev;
     int at, dl;
@@ -140,7 +142,8 @@ void print_grid(int policy) {
 /*  GENERIC PERIODIC TASK					*/
 /*--------------------------------------------------------------*/
 
-void task() {
+void task()
+{
     int x = 0;
     long t = 0;
     int i, k;
@@ -175,7 +178,8 @@ void task() {
 /*  CREATOR TASK						*/
 /*--------------------------------------------------------------*/
 
-void gen() {
+void gen()
+{
     int i, j;
 
     for (i = 1; i < num_tasks; i++) {
@@ -191,7 +195,8 @@ void gen() {
     }
 }
 
-void init() {
+void init()
+{
 
     allegro_init();
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, XWIN, YWIN, 0, 0);
@@ -207,7 +212,8 @@ void init() {
  */
 /*--------------------------------------------------------------*/
 
-int main(void) {
+int main(void)
+{
 
     int ret = 0, nc;
     long x = 0;

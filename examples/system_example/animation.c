@@ -7,13 +7,17 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 
-void draw_ball(int x, int y, int c) { circlefill(screen, x, y, L, c); }
+void draw_ball(int x, int y, int c)
+{
+    circlefill(screen, x, y, L, c);
+}
 
 /*--------------------------------------------------------------*/
 /*	Periodic task			*/
 /*--------------------------------------------------------------*/
 
-void periodicBall_testPart() {
+void periodicBall_testPart()
+{
     int i, col; /* id task  */
     int x, y;   /* x, y ball coordinates */
     int ox;     /* old x coordinate   */
