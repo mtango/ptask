@@ -73,7 +73,9 @@ int dle_exit() {
     return timer_delete(dle_timers[task_index].dle_timer_timerid);
 }
 
-int dle_chkpoint() { return sigsetjmp(ptask_get_current()->jmp_env, 1); }
+int dle_chkpoint() {
+    return sigsetjmp(ptask_get_current()->jmp_env, 1);
+}
 
 int dle_timer_start() {
     struct task_par *task = ptask_get_current();

@@ -16,9 +16,13 @@ static tspec tspec_t0;
 
 const tspec tspec_zero = {0, 0};
 
-tspec tspec_get_ref() { return tspec_t0; }
+tspec tspec_get_ref() {
+    return tspec_t0;
+}
 
-void tspec_init() { clock_gettime(CLOCK_MONOTONIC, &tspec_t0); }
+void tspec_init() {
+    clock_gettime(CLOCK_MONOTONIC, &tspec_t0);
+}
 
 /**
    Given a timespec, converts to a long according to unit.

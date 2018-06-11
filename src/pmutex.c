@@ -24,4 +24,6 @@ int pmux_create_pc(pthread_mutex_t *m, int ceiling) {
     return ret;
 }
 
-int pmux_destroy(pthread_mutex_t *m) { return pthread_mutex_destroy(m); }
+int pmux_destroy(pthread_mutex_t *m) {
+    return pthread_mutex_destroy(m);
+}

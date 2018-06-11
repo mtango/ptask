@@ -10,4 +10,6 @@ int sched_getattr(pid_t pid, struct sched_attr *attr, unsigned int size,
     return syscall(__NR_sched_getattr, pid, attr, size, flags);
 }
 
-pid_t gettid(void) { return syscall(__NR_gettid); }
+pid_t gettid(void) {
+    return syscall(__NR_gettid);
+}

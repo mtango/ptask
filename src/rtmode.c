@@ -20,7 +20,9 @@ tasklist_t tlist_sub(tasklist_t *a, tasklist_t *b) {
     return result;
 }
 
-void tasklist_init(tasklist_t *l) { l->ntasks = 0; }
+void tasklist_init(tasklist_t *l) {
+    l->ntasks = 0;
+}
 
 int tasklist_add(tasklist_t *l, int taskid) {
     if (l->ntasks == RTMODE_MAX_TASKS)

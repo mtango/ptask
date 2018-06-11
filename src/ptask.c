@@ -88,10 +88,14 @@ static __thread int ptask_idx;
 
 // this is to be called from the thread and returns the
 // current index
-int ptask_get_index() { return ptask_idx; }
+int ptask_get_index() {
+    return ptask_idx;
+}
 
 // the exit handler of each task
-static void ptask_exit_handler(void *arg) { release_tp(ptask_idx); }
+static void ptask_exit_handler(void *arg) {
+    release_tp(ptask_idx);
+}
 
 // the thread body.
 // 1) It does some book keeping and installs the
@@ -360,13 +364,21 @@ void ptask_wait_for_activation() {
 /*--------------------------------------------------------------*/
 /*  TASK_ARGUMENT: returns the argument of task i               */
 /*--------------------------------------------------------------*/
-void *ptask_get_argument() { return _tp[ptask_idx].arg; }
+void *ptask_get_argument() {
+    return _tp[ptask_idx].arg;
+}
 
-ptask_state ptask_get_state(int i) { return _tp[i].state; }
+ptask_state ptask_get_state(int i) {
+    return _tp[i].state;
+}
 
-pthread_attr_t *ptask_get_threadattr(int i) { return &_tp[i].attr; }
+pthread_attr_t *ptask_get_threadattr(int i) {
+    return &_tp[i].attr;
+}
 
-pthread_t ptask_get_threadid(int i) { return _tid[i]; }
+pthread_t ptask_get_threadid(int i) {
+    return _tid[i];
+}
 
 struct task_par *ptask_get_task(int i) {
     return &_tp[i];
@@ -376,7 +388,9 @@ struct task_par *ptask_get_current() {
     return ptask_get_task(ptask_idx);
 }
 
-pthread_t running_thread_id() { return _tid[ptask_idx]; }
+pthread_t running_thread_id() {
+    return _tid[ptask_idx];
+}
 
 int ptask_get_period(int i, int unit) {
     int p;
@@ -465,7 +479,9 @@ void ptask_set_runtime(int i, int runtime, int unit) {
     pthread_mutex_unlock(&_tp[i].mux);
 }
 
-int ptask_get_priority(int i) { return _tp[i].priority; }
+int ptask_get_priority(int i) {
+    return _tp[i].priority;
+}
 
 void ptask_set_priority(int i, int prio) {
     struct sched_param mypar;
@@ -618,9 +634,13 @@ int ptask_migrate_to(int i, int core_id) {
     return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
 }
 
-int ptask_get_processor(int i) { return _tp[i].cpu_id; }
+int ptask_get_processor(int i) {
+    return _tp[i].cpu_id;
+}
 
-int ptask_getnumcores() { return ptask_num_cores; }
+int ptask_getnumcores() {
+    return ptask_num_cores;
+}
 
 void ptask_syserror(char *f, char *msg) {
     fprintf(stderr, "%s: ", f);

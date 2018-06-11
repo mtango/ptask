@@ -27,7 +27,9 @@ void tstat_record(int i) {
     measures[i].num_instances++;
 }
 
-tspec ptask_get_wcet(int i) { return measures[i].wcet; }
+tspec ptask_get_wcet(int i) {
+    return measures[i].wcet;
+}
 
 tspec ptask_get_avg(int i) {
     tspec res;
@@ -38,7 +40,9 @@ tspec ptask_get_avg(int i) {
     return res;
 }
 
-int ptask_get_numinstances(int i) { return measures[i].num_instances; }
+int ptask_get_numinstances(int i) {
+    return measures[i].num_instances;
+}
 
 tspec ptask_get_total(int i) {
     return tspec_sub(&measures[i].last, &measures[i].first);
