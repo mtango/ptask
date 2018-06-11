@@ -28,7 +28,7 @@ static pthread_mutex_t _tp_mutex; /** this is used to protect the
                                       _tp data structure from concurrent
                                       accesses from the main and the
                                       threads */
-sem_t _tsem[MAX_TASKS];           /* for task_activate	      */
+sem_t _tsem[MAX_TASKS];           /* for task_activate        */
 int ptask_policy;                 /* common scheduling policy   */
 global_policy ptask_global;       /* global or partitioned      */
 sem_protocol ptask_protocol;      /* semaphore protocol         */
@@ -146,7 +146,7 @@ static void *ptask_std_body(void *arg) {
 }
 
 /*--------------------------------------------------------------*/
-/*  PTASK_INIT: initialize some PTASK variables			*/
+/*  PTASK_INIT: initialize some PTASK variables                 */
 /*--------------------------------------------------------------*/
 
 void ptask_init(int policy, global_policy global, sem_protocol protocol) {
@@ -170,7 +170,7 @@ void ptask_init(int policy, global_policy global, sem_protocol protocol) {
         }
     }
 
-    /* initialize all private sem with the value 0	*/
+    /* initialize all private sem with the value 0              */
     for (i = 0; i < MAX_TASKS; i++) {
         sem_init(&_tsem[i], 0, 0);
         if (i == MAX_TASKS - 1)
@@ -193,7 +193,6 @@ void ptask_init(int policy, global_policy global, sem_protocol protocol) {
 }
 
 static int __create_internal(void (*task)(void), tpars *tp) {
-    // pthread_attr_t	myatt;
     struct sched_param mypar;
     int tret;
     int j = 0;
@@ -275,8 +274,8 @@ int ptask_create_param(void (*task)(void), tpars *tp) {
 }
 
 /*--------------------------------------------------------------*/
-/*  TASK_CREATE: initialize thread parameters and creates a	*/
-/*		 thread						*/
+/*  TASK_CREATE: initialize thread parameters and creates a     */
+/*  thread                                                      */
 /*--------------------------------------------------------------*/
 int ptask_create(void (*task)(void), int period, int prio, int aflag) {
     return ptask_create_prio(task, period, prio, aflag);
@@ -335,9 +334,9 @@ void ptask_wait_for_period() {
 }
 
 /*--------------------------------------------------------------*/
-/*  WAIT_FOR_ACTIVATION: suspends the calling thread until the	*/
-/*		     	 task_activation function is called	*/
-/*		     	 and computes the next activation time	*/
+/*  WAIT_FOR_ACTIVATION: suspends the calling thread until the  */
+/*                       task_activation function is called     */
+/*                       and computes the next activation time  */
 /*--------------------------------------------------------------*/
 void ptask_wait_for_activation() {
     /* suspend on a private semaphore */
@@ -359,7 +358,7 @@ void ptask_wait_for_activation() {
 }
 
 /*--------------------------------------------------------------*/
-/*  TASK_ARGUMENT: returns the argument of task i		*/
+/*  TASK_ARGUMENT: returns the argument of task i               */
 /*--------------------------------------------------------------*/
 void *ptask_get_argument() { return _tp[ptask_idx].arg; }
 
@@ -480,56 +479,56 @@ void ptask_set_priority(int i, int prio) {
     sched_setscheduler(ptask_get_threadid(i), ptask_policy, &mypar);
 }
 
-/* int	task_deadline(int i) */
+/* int  task_deadline(int i) */
 /* { */
 /*     return tspec_to(&_tp[i].deadline, MILLI); */
 /* } */
 
 /*--------------------------------------------------------------*/
-/*  TASK_ATIME: returns next activation time of task i in ms	*/
+/*  TASK_ATIME: returns next activation time of task i in ms    */
 /*--------------------------------------------------------------*/
 
-/* long	task_atime(int i) */
+/* long task_atime(int i) */
 /* { */
-/*     long	al; */
+/*     long     al; */
 
 /*     al = _tp[i].at.tv_sec*1000 + _tp[i].at.tv_nsec/1000000; */
 /*     return al; */
 /* } */
 
 /*--------------------------------------------------------------*/
-/*  TASK_ABSDL: returns the absolute deadline of task i	in ms	*/
+/*  TASK_ABSDL: returns the absolute deadline of task i in ms   */
 /*--------------------------------------------------------------*/
 
-/* long	task_absdl(int i) */
+/* long task_absdl(int i) */
 /* { */
-/*     long	dl; */
+/*     long     dl; */
 
 /*     dl = _tp[i].dl.tv_sec*1000 + _tp[i].dl.tv_nsec/1000000; */
 /*     return dl; */
 /* } */
 
 /*--------------------------------------------------------------*/
-/*  TASK_SETPERIOD: set the period of task i			*/
+/*  TASK_SETPERIOD: set the period of task i                    */
 /*--------------------------------------------------------------*/
 
-/* void	task_setperiod(int i, int per) */
+/* void task_setperiod(int i, int per) */
 /* { */
 /*     _tp[i].period = tspec_from(per, MILLI); */
 /* } */
 
 /*--------------------------------------------------------------*/
-/*  TASK_SETDEADLINE: set the relative deadline of task i	*/
+/*  TASK_SETDEADLINE: set the relative deadline of task i       */
 /*--------------------------------------------------------------*/
 
-/* void	task_setdeadline(int i, int dline) */
+/* void task_setdeadline(int i, int dline) */
 /* { */
 /*     _tp[i].deadline = tspec_from(dline, MILLI); */
 /* } */
 
 /*--------------------------------------------------------------*/
-/*  DEADLINE_MISS: if a deadline is missed increments dmiss	*/
-/*		   and returns 1, otherwise returns 0		*/
+/*  DEADLINE_MISS: if a deadline is missed increments dmiss     */
+/*                 and returns 1, otherwise returns 0           */
 /*--------------------------------------------------------------*/
 
 int ptask_deadline_miss() {
@@ -542,7 +541,7 @@ int ptask_deadline_miss() {
 }
 
 /*--------------------------------------------------------------*/
-/*  TASK_ACTIVATE: activate task i				*/
+/*  TASK_ACTIVATE: activate task i                              */
 /*--------------------------------------------------------------*/
 
 int ptask_activate(int i) {
