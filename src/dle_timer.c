@@ -12,7 +12,8 @@ struct dle_manager_s {
 static struct dle_manager_s dle_manager;
 static struct dle_timer_s dle_timers[MAX_TASKS];
 
-static void dle_manager_handler(int signo, siginfo_t *info, void *context) {
+static void dle_manager_handler(int signo, siginfo_t *info, void *context)
+{
     struct task_par *task = ptask_get_task(info->si_value.sival_int);
     printf("Handler Task Manager Warning : task %d received signal %d",
            info->si_value.sival_int, signo);
@@ -22,17 +23,20 @@ static void dle_manager_handler(int signo, siginfo_t *info, void *context) {
         exit(EXIT_FAILURE);
 }
 
-static int dle_timer_initialized() {
+static int dle_timer_initialized()
+{
     int task_index = ptask_get_index();
     return (dle_timers[task_index].dle_timer_timerid != 0);
 }
 
-static void task_handler(int sig, siginfo_t *info, void *context) {
+static void task_handler(int sig, siginfo_t *info, void *context)
+{
     siglongjmp(ptask_get_current()->jmp_env, 1);
 }
 
 // Not meant to be calle the user
-int dle_init() {
+int dle_init()
+{
     struct sigaction manager_sigaction, task_sigaction;
     int task_index = ptask_get_index();
     struct sigevent sev;
@@ -66,18 +70,21 @@ int dle_init() {
 }
 
 // Not meant to be called by the user
-int dle_exit() {
+int dle_exit()
+{
     int task_index = ptask_get_index();
     if (!dle_timer_initialized())
         return -1;
     return timer_delete(dle_timers[task_index].dle_timer_timerid);
 }
 
-int dle_chkpoint() {
+int dle_chkpoint()
+{
     return sigsetjmp(ptask_get_current()->jmp_env, 1);
 }
 
-int dle_timer_start() {
+int dle_timer_start()
+{
     struct task_par *task = ptask_get_current();
     int task_index = task->index;
     struct itimerspec its;
@@ -94,7 +101,8 @@ int dle_timer_start() {
                          TIMER_ABSTIME, &its, NULL);
 }
 
-int dle_timer_stop() {
+int dle_timer_stop()
+{
     struct itimerspec its;
     int task_index = ptask_get_index();
     if (!dle_timer_initialized())
@@ -109,7 +117,8 @@ int dle_timer_stop() {
                          TIMER_ABSTIME, &its, NULL);
 }
 
-static ptask dle_manager_task(void) {
+static ptask dle_manager_task(void)
+{
     sigset_t set;
     sigfillset(&set);
     sigdelset(&set, SIGUSR2);
@@ -119,7 +128,8 @@ static ptask dle_manager_task(void) {
         pause();
 }
 
-int dle_manager_init() {
+int dle_manager_init()
+{
     tpars param;
     int res;
     ptask_param_init(param);

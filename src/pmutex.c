@@ -1,6 +1,7 @@
 #include "pmutex.h"
 
-int pmux_create_pi(pthread_mutex_t *m) {
+int pmux_create_pi(pthread_mutex_t *m)
+{
     pthread_mutexattr_t mta;
     pthread_mutexattr_init(&mta);
     pthread_mutexattr_setprotocol(&mta, PTHREAD_PRIO_INHERIT);
@@ -11,7 +12,8 @@ int pmux_create_pi(pthread_mutex_t *m) {
     return ret;
 }
 
-int pmux_create_pc(pthread_mutex_t *m, int ceiling) {
+int pmux_create_pc(pthread_mutex_t *m, int ceiling)
+{
     pthread_mutexattr_t mta;
 
     pthread_mutexattr_init(&mta);
@@ -24,6 +26,7 @@ int pmux_create_pc(pthread_mutex_t *m, int ceiling) {
     return ret;
 }
 
-int pmux_destroy(pthread_mutex_t *m) {
+int pmux_destroy(pthread_mutex_t *m)
+{
     return pthread_mutex_destroy(m);
 }

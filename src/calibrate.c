@@ -5,7 +5,8 @@
 
 static long iter_milli = 0;
 
-long calibrate() {
+long calibrate()
+{
 
     FILE *f = fopen(CALIBRATE_FILE, "r");
     if (f == NULL) {
@@ -18,7 +19,8 @@ long calibrate() {
     return iter_milli;
 }
 
-void work_for(ptime delay, int unit) {
+void work_for(ptime delay, int unit)
+{
     tspec t = tstat_getexec(); // the start value
     ptime delta = 0;
     while (delay > delta) {

@@ -44,7 +44,8 @@ int dle_exit(); // TODO : modify comment (after task ends)
    the head of the list. This extracts from the head. It uses the
    _tp_mutex to protect the critical section.
 */
-static int allocate_tp() {
+static int allocate_tp()
+{
     int x = first_free;
     if (x == _TP_NOMORE)
         return -1;
@@ -73,7 +74,8 @@ static int allocate_tp() {
    Frees a descriptor. It inserts the free descriptor at the head of
    the queue. It uses the _tp_mutex to protect the critical section.
  */
-static void release_tp(int i) {
+static void release_tp(int i)
+{
     pthread_mutex_lock(&_tp_mutex);
 
     _tp[i].free = first_free;
@@ -88,12 +90,14 @@ static __thread int ptask_idx;
 
 // this is to be called from the thread and returns the
 // current index
-int ptask_get_index() {
+int ptask_get_index()
+{
     return ptask_idx;
 }
 
 // the exit handler of each task
-static void ptask_exit_handler(void *arg) {
+static void ptask_exit_handler(void *arg)
+{
     release_tp(ptask_idx);
 }
 
@@ -103,7 +107,8 @@ static void ptask_exit_handler(void *arg) {
 // 2) if necessary, waits for the first activation
 // 3) then calls the real user task body
 // 40 on exit, it cleans up everything
-static void *ptask_std_body(void *arg) {
+static void *ptask_std_body(void *arg)
+{
     struct task_par *pdes = (struct task_par *)arg;
 
     tspec t;
@@ -153,7 +158,8 @@ static void *ptask_std_body(void *arg) {
 /*  PTASK_INIT: initialize some PTASK variables                 */
 /*--------------------------------------------------------------*/
 
-void ptask_init(int policy, global_policy global, sem_protocol protocol) {
+void ptask_init(int policy, global_policy global, sem_protocol protocol)
+{
     int i;
 
     ptask_policy = policy;
@@ -196,7 +202,8 @@ void ptask_init(int policy, global_policy global, sem_protocol protocol) {
     tspec_init();
 }
 
-static int __create_internal(void (*task)(void), tpars *tp) {
+static int __create_internal(void (*task)(void), tpars *tp)
+{
     struct sched_param mypar;
     int tret;
     int j = 0;
@@ -222,7 +229,8 @@ static int __create_internal(void (*task)(void), tpars *tp) {
         _tp[i].measure_flag = 0;
         _tp[i].arg = 0;
         _tp[i].modes = NULL;
-    } else {
+    }
+    else {
         _tp[i].runtime = tp->runtime;
         _tp[i].period = tp->period;
         _tp[i].deadline = tp->rdline;
@@ -251,7 +259,8 @@ static int __create_internal(void (*task)(void), tpars *tp) {
         pthread_attr_setschedpolicy(&_tp[i].attr, ptask_policy);
         mypar.sched_priority = _tp[i].priority;
         pthread_attr_setschedparam(&_tp[i].attr, &mypar);
-    } else
+    }
+    else
         pthread_attr_setschedpolicy(&_tp[i].attr, SCHED_OTHER);
     cpu_set_t cpuset;
     if (ptask_global == PARTITIONED) {
@@ -267,13 +276,15 @@ static int __create_internal(void (*task)(void), tpars *tp) {
 
     if (tret == 0) {
         return i;
-    } else {
+    }
+    else {
         release_tp(i);
         return -1;
     }
 }
 
-int ptask_create_param(void (*task)(void), tpars *tp) {
+int ptask_create_param(void (*task)(void), tpars *tp)
+{
     return __create_internal(task, tp);
 }
 
@@ -281,11 +292,13 @@ int ptask_create_param(void (*task)(void), tpars *tp) {
 /*  TASK_CREATE: initialize thread parameters and creates a     */
 /*  thread                                                      */
 /*--------------------------------------------------------------*/
-int ptask_create(void (*task)(void), int period, int prio, int aflag) {
+int ptask_create(void (*task)(void), int period, int prio, int aflag)
+{
     return ptask_create_prio(task, period, prio, aflag);
 }
 
-int ptask_create_prio(void (*task)(void), int period, int prio, int aflag) {
+int ptask_create_prio(void (*task)(void), int period, int prio, int aflag)
+{
     tpars param = TASK_SPEC_DFL;
     param.period = tspec_from(period, MILLI);
     param.rdline = tspec_from(period, MILLI);
@@ -296,7 +309,8 @@ int ptask_create_prio(void (*task)(void), int period, int prio, int aflag) {
 }
 
 int ptask_create_edf(void (*task)(void), int period, int runtime, int dline,
-                     int aflag) {
+                     int aflag)
+{
     tpars param = TASK_SPEC_DFL;
     param.period = tspec_from(period, MILLI);
     param.runtime = tspec_from(runtime, MILLI);
@@ -306,7 +320,8 @@ int ptask_create_edf(void (*task)(void), int period, int runtime, int dline,
     return __create_internal(task, &param);
 }
 
-void ptask_wait_for_period() {
+void ptask_wait_for_period()
+{
     pthread_mutex_lock(&_tp[ptask_idx].mux);
     if (_tp[ptask_idx].measure_flag)
         tstat_record(ptask_idx);
@@ -317,7 +332,8 @@ void ptask_wait_for_period() {
         pthread_mutex_unlock(&_tp[ptask_idx].mux);
         ptask_wait_for_activation();
         return;
-    } else {
+    }
+    else {
         _tp[ptask_idx].state = TASK_WFP;
         pthread_mutex_unlock(&_tp[ptask_idx].mux);
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &(_tp[ptask_idx].at),
@@ -342,7 +358,8 @@ void ptask_wait_for_period() {
 /*                       task_activation function is called     */
 /*                       and computes the next activation time  */
 /*--------------------------------------------------------------*/
-void ptask_wait_for_activation() {
+void ptask_wait_for_activation()
+{
     /* suspend on a private semaphore */
     _tp[ptask_idx].state = TASK_SUSPENDED;
     // printf("before sem_wait on task %d\n", ptask_idx);
@@ -364,35 +381,43 @@ void ptask_wait_for_activation() {
 /*--------------------------------------------------------------*/
 /*  TASK_ARGUMENT: returns the argument of task i               */
 /*--------------------------------------------------------------*/
-void *ptask_get_argument() {
+void *ptask_get_argument()
+{
     return _tp[ptask_idx].arg;
 }
 
-ptask_state ptask_get_state(int i) {
+ptask_state ptask_get_state(int i)
+{
     return _tp[i].state;
 }
 
-pthread_attr_t *ptask_get_threadattr(int i) {
+pthread_attr_t *ptask_get_threadattr(int i)
+{
     return &_tp[i].attr;
 }
 
-pthread_t ptask_get_threadid(int i) {
+pthread_t ptask_get_threadid(int i)
+{
     return _tid[i];
 }
 
-struct task_par *ptask_get_task(int i) {
+struct task_par *ptask_get_task(int i)
+{
     return &_tp[i];
 }
 
-struct task_par *ptask_get_current() {
+struct task_par *ptask_get_current()
+{
     return ptask_get_task(ptask_idx);
 }
 
-pthread_t running_thread_id() {
+pthread_t running_thread_id()
+{
     return _tid[ptask_idx];
 }
 
-int ptask_get_period(int i, int unit) {
+int ptask_get_period(int i, int unit)
+{
     int p;
     pthread_mutex_lock(&_tp[i].mux);
     p = tspec_to(&_tp[i].period, unit);
@@ -400,7 +425,8 @@ int ptask_get_period(int i, int unit) {
     return p;
 }
 
-void ptask_set_period(int i, int period, int unit) {
+void ptask_set_period(int i, int period, int unit)
+{
     tspec new_period;
     new_period = tspec_from(period, unit);
 
@@ -420,7 +446,8 @@ void ptask_set_period(int i, int period, int unit) {
     pthread_mutex_unlock(&_tp[i].mux);
 }
 
-int ptask_get_deadline(int i, int unit) {
+int ptask_get_deadline(int i, int unit)
+{
     int d;
     pthread_mutex_lock(&_tp[i].mux);
     d = tspec_to(&_tp[i].deadline, unit);
@@ -428,7 +455,8 @@ int ptask_get_deadline(int i, int unit) {
     return d;
 }
 
-void ptask_set_deadline(int i, int dline, int unit) {
+void ptask_set_deadline(int i, int dline, int unit)
+{
     tspec new_dline;
     new_dline = tspec_from(dline, unit);
 
@@ -448,7 +476,8 @@ void ptask_set_deadline(int i, int dline, int unit) {
     pthread_mutex_unlock(&_tp[i].mux);
 }
 
-int ptask_get_runtime(int i, int unit) {
+int ptask_get_runtime(int i, int unit)
+{
     int d;
     pthread_mutex_lock(&_tp[i].mux);
     d = tspec_to(&_tp[i].runtime, unit);
@@ -456,7 +485,8 @@ int ptask_get_runtime(int i, int unit) {
     return d;
 }
 
-void ptask_set_runtime(int i, int runtime, int unit) {
+void ptask_set_runtime(int i, int runtime, int unit)
+{
     tspec new_runtime;
     struct sched_attr *attr;
 
@@ -479,11 +509,13 @@ void ptask_set_runtime(int i, int runtime, int unit) {
     pthread_mutex_unlock(&_tp[i].mux);
 }
 
-int ptask_get_priority(int i) {
+int ptask_get_priority(int i)
+{
     return _tp[i].priority;
 }
 
-void ptask_set_priority(int i, int prio) {
+void ptask_set_priority(int i, int prio)
+{
     struct sched_param mypar;
 
     if (ptask_policy == SCHED_DEADLINE) {
@@ -547,7 +579,8 @@ void ptask_set_priority(int i, int prio) {
 /*                 and returns 1, otherwise returns 0           */
 /*--------------------------------------------------------------*/
 
-int ptask_deadline_miss() {
+int ptask_deadline_miss()
+{
     struct timespec now;
     clock_gettime(CLOCK_MONOTONIC, &now);
     if (tspec_cmp(&now, &_tp[ptask_idx].dl) > 0)
@@ -560,14 +593,16 @@ int ptask_deadline_miss() {
 /*  TASK_ACTIVATE: activate task i                              */
 /*--------------------------------------------------------------*/
 
-int ptask_activate(int i) {
+int ptask_activate(int i)
+{
     struct timespec t;
     int ret = 1;
     pthread_mutex_lock(&_tp[i].mux);
 
     if (_tp[i].state == TASK_ACTIVE || _tp[i].state == TASK_WFP) {
         ret = -1;
-    } else {
+    }
+    else {
         clock_gettime(CLOCK_MONOTONIC, &t);
 
         /* compute the absolute deadline */
@@ -583,7 +618,8 @@ int ptask_activate(int i) {
     return ret;
 }
 
-int ptask_activate_at(int i, ptime offset, int unit) {
+int ptask_activate_at(int i, ptime offset, int unit)
+{
     tspec reloff = tspec_from(offset, unit);
     tspec t;
     int ret = 1;
@@ -593,7 +629,8 @@ int ptask_activate_at(int i, ptime offset, int unit) {
     /* if (_tp[i].state == TASK_ACTIVE || _tp[i].state == TASK_WFP) { */
     if (_tp[i].state == TASK_WFP) {
         ret = -1;
-    } else {
+    }
+    else {
         t = tspec_get_ref();
         /* compute the absolute deadline */
         _tp[i].offset = tspec_add(&t, &reloff);
@@ -608,7 +645,8 @@ int ptask_activate_at(int i, ptime offset, int unit) {
     return ret;
 }
 
-ptime ptask_get_nextactivation(int unit) {
+ptime ptask_get_nextactivation(int unit)
+{
     ptime at_tmp;
     tspec t = tspec_get_ref();
 
@@ -621,7 +659,8 @@ ptime ptask_get_nextactivation(int unit) {
 
 /*--------------------------------------------------------------*/
 
-int ptask_migrate_to(int i, int core_id) {
+int ptask_migrate_to(int i, int core_id)
+{
     if (core_id >= ptask_num_cores)
         return -1;
 
@@ -634,15 +673,18 @@ int ptask_migrate_to(int i, int core_id) {
     return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
 }
 
-int ptask_get_processor(int i) {
+int ptask_get_processor(int i)
+{
     return _tp[i].cpu_id;
 }
 
-int ptask_getnumcores() {
+int ptask_getnumcores()
+{
     return ptask_num_cores;
 }
 
-void ptask_syserror(char *f, char *msg) {
+void ptask_syserror(char *f, char *msg)
+{
     fprintf(stderr, "%s: ", f);
     fprintf(stderr, "%s \n", msg);
     exit(-1);

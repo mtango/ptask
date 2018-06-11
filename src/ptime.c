@@ -16,18 +16,21 @@ static tspec tspec_t0;
 
 const tspec tspec_zero = {0, 0};
 
-tspec tspec_get_ref() {
+tspec tspec_get_ref()
+{
     return tspec_t0;
 }
 
-void tspec_init() {
+void tspec_init()
+{
     clock_gettime(CLOCK_MONOTONIC, &tspec_t0);
 }
 
 /**
    Given a timespec, converts to a long according to unit.
  */
-long tspec_to(const tspec *t, int unit) {
+long tspec_to(const tspec *t, int unit)
+{
     long tu;
     tu = (t->tv_sec) * conv_table[unit].mul;
     tu += (t->tv_nsec) / conv_table[unit].div;
@@ -39,7 +42,8 @@ long tspec_to(const tspec *t, int unit) {
    Given a long integer, expressed as unit, converts it into a
    timespec.
  */
-tspec tspec_from(long tu, int unit) {
+tspec tspec_from(long tu, int unit)
+{
     tspec t;
 
     long mm = tu % conv_table[unit].mul;
@@ -53,7 +57,8 @@ tspec tspec_from(long tu, int unit) {
 /**
    Given a timespec, converts to a long according to unit.
  */
-long tspec_to_rel(const tspec *t, int unit) {
+long tspec_to_rel(const tspec *t, int unit)
+{
     long tu;
     tu = (t->tv_sec - tspec_t0.tv_sec) * conv_table[unit].mul;
     tu += (t->tv_nsec - tspec_t0.tv_nsec) / conv_table[unit].div;
@@ -65,7 +70,8 @@ long tspec_to_rel(const tspec *t, int unit) {
    Given a long integer, expressed as unit, converts it into a
    timespec.
  */
-tspec tspec_from_rel(long tu, int unit) {
+tspec tspec_from_rel(long tu, int unit)
+{
     tspec t;
 
     long mm = tu % conv_table[unit].mul;
@@ -80,7 +86,8 @@ tspec tspec_from_rel(long tu, int unit) {
 /*  GET_TIME_MS:	return the number of time units		*/
 /*			since system start time			*/
 /*--------------------------------------------------------------*/
-long ptask_gettime(int unit) {
+long ptask_gettime(int unit)
+{
     tspec t;
 
     clock_gettime(CLOCK_MONOTONIC, &t);
@@ -88,7 +95,8 @@ long ptask_gettime(int unit) {
     return tspec_to_rel(&t, unit);
 }
 
-tspec tspec_add_delta(const tspec *a, ptime delta, int unit) {
+tspec tspec_add_delta(const tspec *a, ptime delta, int unit)
+{
     tspec d = tspec_from(delta, unit);
     tspec s;
     s.tv_nsec = a->tv_nsec + d.tv_nsec;
@@ -100,7 +108,8 @@ tspec tspec_add_delta(const tspec *a, ptime delta, int unit) {
     return s;
 }
 
-tspec tspec_add(const tspec *a, const tspec *b) {
+tspec tspec_add(const tspec *a, const tspec *b)
+{
     tspec s;
     s.tv_nsec = a->tv_nsec + b->tv_nsec;
     s.tv_sec = a->tv_sec + b->tv_sec;
@@ -114,7 +123,8 @@ tspec tspec_add(const tspec *a, const tspec *b) {
 /**
    Compares two timespecs
  */
-int tspec_cmp(const tspec *a, const tspec *b) {
+int tspec_cmp(const tspec *a, const tspec *b)
+{
     if (a->tv_sec > b->tv_sec)
         return 1;
     else if (a->tv_sec < b->tv_sec)
@@ -130,7 +140,8 @@ int tspec_cmp(const tspec *a, const tspec *b) {
     return 0;
 }
 
-tspec tspec_sub(const tspec *a, const tspec *b) {
+tspec tspec_sub(const tspec *a, const tspec *b)
+{
     tspec d;
 
     d.tv_nsec = a->tv_nsec - b->tv_nsec;
@@ -145,7 +156,8 @@ tspec tspec_sub(const tspec *a, const tspec *b) {
 /**
    d = a - b
  */
-tspec tspec_sub_delta(const tspec *a, ptime delta, int unit) {
+tspec tspec_sub_delta(const tspec *a, ptime delta, int unit)
+{
     tspec d;
     tspec b = tspec_from(delta, unit);
     d.tv_nsec = a->tv_nsec - b.tv_nsec;

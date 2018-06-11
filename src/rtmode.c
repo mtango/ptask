@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-tasklist_t tlist_sub(tasklist_t *a, tasklist_t *b) {
+tasklist_t tlist_sub(tasklist_t *a, tasklist_t *b)
+{
     int i, j;
     tasklist_t result;
     result.ntasks = 0;
@@ -20,11 +21,13 @@ tasklist_t tlist_sub(tasklist_t *a, tasklist_t *b) {
     return result;
 }
 
-void tasklist_init(tasklist_t *l) {
+void tasklist_init(tasklist_t *l)
+{
     l->ntasks = 0;
 }
 
-int tasklist_add(tasklist_t *l, int taskid) {
+int tasklist_add(tasklist_t *l, int taskid)
+{
     if (l->ntasks == RTMODE_MAX_TASKS)
         return 0;
     else {
@@ -33,7 +36,8 @@ int tasklist_add(tasklist_t *l, int taskid) {
     }
 }
 
-static void mode_manager() {
+static void mode_manager()
+{
     int i;
     rtmode_t *g = (rtmode_t *)ptask_get_argument();
     tspec wakeup;
@@ -51,7 +55,8 @@ static void mode_manager() {
         if (g->curr_mode != -1 && newmode != -1) {
             toblock = tlist_sub(&g->modes[g->curr_mode], &g->modes[newmode]);
             towake = tlist_sub(&g->modes[newmode], &g->modes[g->curr_mode]);
-        } else {
+        }
+        else {
             if (g->curr_mode != -1)
                 toblock = g->modes[g->curr_mode];
             if (newmode != -1)
@@ -70,7 +75,8 @@ static void mode_manager() {
     }
 }
 
-int rtmode_init(rtmode_t *g, int nmodes) {
+int rtmode_init(rtmode_t *g, int nmodes)
+{
     int i;
 
     g->modes = (tasklist_t *)malloc(sizeof(tasklist_t) * nmodes);
@@ -91,19 +97,22 @@ int rtmode_init(rtmode_t *g, int nmodes) {
     return g->manager_id;
 }
 
-int rtmode_addtask(rtmode_t *g, int modeid, int tid) {
+int rtmode_addtask(rtmode_t *g, int modeid, int tid)
+{
     if (modeid >= g->nmodes)
         return 0;
     else
         return tasklist_add(&g->modes[modeid], tid);
 }
 
-void rtmode_changemode(rtmode_t *g, int new_mode_id) {
+void rtmode_changemode(rtmode_t *g, int new_mode_id)
+{
     g->queue[g->head++] = new_mode_id;
     ptask_activate(g->manager_id);
 }
 
-int rtmode_taskfind(rtmode_t *g, int tid) {
+int rtmode_taskfind(rtmode_t *g, int tid)
+{
     int i;
     if (g->curr_mode < 0 || g->curr_mode >= RTMODE_MAX_MODES)
         return 0;
@@ -115,14 +124,16 @@ int rtmode_taskfind(rtmode_t *g, int tid) {
     return 0;
 }
 
-void maxsem_init(maxsem_t *gs) {
+void maxsem_init(maxsem_t *gs)
+{
     pmux_create_pc(&gs->m, 99);
     pthread_cond_init(&gs->c, 0);
     gs->nsignals = 0;
     gs->narrived = 0;
 }
 
-void maxsem_post(maxsem_t *gs, tspec *t) {
+void maxsem_post(maxsem_t *gs, tspec *t)
+{
     pthread_mutex_lock(&gs->m);
     if (tspec_cmp(t, &gs->max) > 0)
         gs->max = *t;
@@ -132,7 +143,8 @@ void maxsem_post(maxsem_t *gs, tspec *t) {
     pthread_mutex_unlock(&gs->m);
 }
 
-tspec maxsem_wait(maxsem_t *gs, int nsignals) {
+tspec maxsem_wait(maxsem_t *gs, int nsignals)
+{
     pthread_mutex_lock(&gs->m);
     clock_gettime(CLOCK_MONOTONIC, &gs->max);
     gs->nsignals = nsignals;
