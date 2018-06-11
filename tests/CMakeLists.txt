@@ -11,7 +11,7 @@ add_executable(test_cores test_cores.c)
 add_executable(task_create task_create.c)
 add_executable(task_aperiodic task_aperiodic.c)
 add_executable(wcet_calibration wcet_calibration.c)
-add_executable(test_edf test_edf.c calibrate.c)
+add_executable(test_edf test_edf.c)
 
 # Indicate that ptask library dependency
 target_link_libraries(time ptask rt)
