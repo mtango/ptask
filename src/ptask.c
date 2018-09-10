@@ -292,11 +292,6 @@ int ptask_create_param(void (*task)(void), tpars *tp)
 /*  TASK_CREATE: initialize thread parameters and creates a     */
 /*  thread                                                      */
 /*--------------------------------------------------------------*/
-int ptask_create(void (*task)(void), int period, int prio, int aflag)
-{
-    return ptask_create_prio(task, period, prio, aflag);
-}
-
 int ptask_create_prio(void (*task)(void), int period, int prio, int aflag)
 {
     tpars param = TASK_SPEC_DFL;

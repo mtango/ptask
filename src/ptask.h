@@ -134,15 +134,6 @@ void ptask_syserror(char *fun, char *msg);
 /*----------------------------------------------------------------------*/
 /**
     Creates a task with a certain task body, a period, a priority and an
-    activation flag
-    Deprecated : Use the function ptask_create_prio instead */
-int ptask_create(void (*task)(void), int period, int prio, int aflag)
-#ifdef __GNUC__
-    __attribute__((deprecated));
-#endif
-
-/**
-    Creates a task with a certain task body, a period, a priority and an
     activation flag */
 int ptask_create_prio(void (*task)(void), int period, int prio, int aflag);
 
